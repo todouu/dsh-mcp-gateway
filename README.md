@@ -12,7 +12,7 @@ The system prompt carries a one-line summary per tool (or only per-server counts
 
 ## Install
 
-Requires [DeepSeek Harness](https://github.com/deepseek-ai) (`dsh`) and Node.js 20 or later.
+Requires DeepSeek Harness (the `dsh` command) and Node.js 20 or later.
 
 Add the package to the profile you use (`web` in this example):
 
@@ -20,7 +20,7 @@ Add the package to the profile you use (`web` in this example):
 dsh plugin --profile web add github:todouu/dsh-mcp-gateway
 ```
 
-`dsh plugin` forwards its arguments to pnpm in the profile directory. The package installs as `@local/mcp-gateway`, and its `package.json` points DSH at the bundled `cordis.patch.yml`, so the plugin is registered in the profile automatically. Restart `dsh` afterwards.
+`dsh plugin` forwards its arguments to pnpm in the profile directory. The package installs as `@local/mcp-gateway`, and its `package.json` points DSH at the bundled `cordis.patch.yml`, so the plugin is added to the profile's bundle list. Check that `@local/mcp-gateway` appears in `dsh.profile.bundles` in the profile's `package.json`, or turn it on in the Plugins page of the Web sidebar. Restart `dsh` afterwards.
 
 To update later, run the same `add` command again. To remove it:
 
