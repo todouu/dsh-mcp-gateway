@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "MCP Gateway",
+    "description": "Hides the native tools of chosen MCP servers and offers catalog, describe and call tools instead, so each request carries a short tool list rather than every schema."
+  }
+}

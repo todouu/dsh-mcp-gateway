@@ -1,0 +1,9 @@
+- insert:
+    - id: mcp-gateway
+      name: '@local/mcp-gateway'
+      config:
+        # Names of the MCP servers whose native tools should be hidden
+        # behind the gateway. Replace with your own server names.
+        servers: [server-a, server-b]
+        inlineLimit: 60
+        summaryChars: 90
