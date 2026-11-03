@@ -20,12 +20,12 @@ Add the package to the profile you use (`web` in this example):
 dsh plugin --profile web add github:todouu/dsh-mcp-gateway
 ```
 
-`dsh plugin` forwards its arguments to pnpm in the profile directory. The package installs as `@local/mcp-gateway`, and its `package.json` points DSH at the bundled `cordis.patch.yml`, so the plugin is added to the profile's bundle list. Check that `@local/mcp-gateway` appears in `dsh.profile.bundles` in the profile's `package.json`, or turn it on in the Plugins page of the Web sidebar. Restart `dsh` afterwards.
+`dsh plugin` forwards its arguments to pnpm in the profile directory. The package installs as `dsh-mcp-gateway`, and its `package.json` points DSH at the bundled `cordis.patch.yml`, so the plugin is added to the profile's bundle list. Check that `dsh-mcp-gateway` appears in `dsh.profile.bundles` in the profile's `package.json`, or turn it on in the Plugins page of the Web sidebar. Restart `dsh` afterwards.
 
 To update later, run the same `add` command again. To remove it:
 
 ```sh
-dsh plugin --profile web remove @local/mcp-gateway
+dsh plugin --profile web remove dsh-mcp-gateway
 ```
 
 ### Install from a local checkout
@@ -41,7 +41,7 @@ The bundled patch ships with placeholder server names, so the plugin does nothin
 
 ```yaml
 - id: mcp-gateway
-  name: '@local/mcp-gateway'
+  name: 'dsh-mcp-gateway'
   config:
     servers: [meta-mcp, datadog]  # MCP server names to put behind the gateway
     inlineLimit: 60                # above this many tools, show counts instead of a list
