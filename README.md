@@ -8,7 +8,7 @@ It hides the native tools of the MCP servers you choose and exposes three small 
 - `mcp_describe` returns the full description and JSON schema of one tool.
 - `mcp_call` calls a tool with the given arguments.
 
-The system prompt carries a one-line summary per tool (or only per-server counts when there are more than `inlineLimit` tools). The model fetches a full schema only when it needs one.
+The system prompt carries one line per server listing its tool names (or only per-server counts when there are more than `inlineLimit` tools). Each server's own usage instructions are cut to a short brief, and the full text is served by `mcp_describe "<server>"`. The model fetches a full schema or the full instructions only when it needs them.
 
 ## Install
 
@@ -45,8 +45,12 @@ The bundled patch ships with placeholder server names, so the plugin does nothin
   config:
     servers: [meta-mcp, datadog]  # MCP server names to put behind the gateway
     inlineLimit: 60                # above this many tools, show counts instead of a list
-    summaryChars: 90               # max length of each tool summary
+    summaryChars: 90               # max length of each tool summary (mcp_catalog, and inline when inlineMode is summaries)
+    instructionChars: 0            # characters of each server's instructions kept in the prompt; 0 (default) hides them, read via mcp_describe "<server>"
+    inlineMode: none               # none (default): prompt only names the proxied servers; names: tool names per server; summaries: name plus one-line summary
 ```
+
+The server instructions are sent by the MCP server itself and are not hidden by the tool restriction, so the plugin removes their prompt sections itself (and the resource-server list when it only names gateway servers). The model reads them with `mcp_describe "<server>"`. Tools whose description starts with `do-not-call` are left out of the inline list.
 
 Each name in `servers` must equal the `serverName` of an MCP client entry in the same profile, because tools are matched by the `mcp__<server>__` prefix. Names must match `[A-Za-z0-9_-]{1,32}`. If `servers` is empty, the plugin logs a warning and does nothing.
 
